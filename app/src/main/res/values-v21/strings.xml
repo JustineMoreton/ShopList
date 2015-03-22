@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="addButton">+ add new list</string>
+    <string name="imeAdd">Add</string>
+</resources>
