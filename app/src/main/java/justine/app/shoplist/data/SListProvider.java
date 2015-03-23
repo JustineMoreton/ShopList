@@ -19,7 +19,7 @@ public class SListProvider extends ContentProvider {
     private static final int SHOPLIST_NAME =100;
     private static final int SHOPLIST_ITEM=101;
     String [] fromCols ={SListContract.MainListColumns._ID,SListContract.MainListColumns.SHOPLIST_NAME_COL};
-    String [] fromDetCols ={SListContract.DetailListColumns._ID,SListContract.DetailListColumns.SHOPLIST_ITEMS_COL};
+    String [] fromDetCols ={SListContract.DetailListColumns._ID,SListContract.DetailListColumns.SHOPLIST_ITEMS_COL, SListContract.DetailListColumns.SHOPLIST_PARENT_NAME};
     int [] toTextViews ={R.id.listView};
 
     static  UriMatcher buildUriMatcher(){
@@ -60,7 +60,7 @@ public class SListProvider extends ContentProvider {
                 sortOrder ="_ID ASC";
                 mCursor = sListDBHelper.getReadableDatabase().query(
                         SListContract.DetailListColumns.SHOPLIST_DETAIL_TABLE_NAME,
-                        fromDetCols,
+                        projection,
                         selection,
                         selectionArgs,
                         null,
@@ -100,14 +100,14 @@ public class SListProvider extends ContentProvider {
         switch (match){
             case SHOPLIST_NAME:
                 db.insert(SListContract.MainListColumns.SHOPLIST_TABLE_NAME,
-                        SListContract.MainListColumns.SHOPLIST_NAME_COL,
+                        null,
                         values
 
                 );
                 break;
             case SHOPLIST_ITEM:
                 db.insert(SListContract.DetailListColumns.SHOPLIST_DETAIL_TABLE_NAME,
-                        SListContract.DetailListColumns.SHOPLIST_ITEMS_COL,
+                        null,
                         values);
                 System.out.print("db inserted");
                 break;
@@ -119,7 +119,23 @@ public class SListProvider extends ContentProvider {
 
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
+        SQLiteDatabase db = sListDBHelper.getWritableDatabase();
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case SHOPLIST_NAME:
+                db.delete(SListContract.MainListColumns.SHOPLIST_TABLE_NAME,
+                        selection,
+                        selectionArgs
 
+                );
+                break;
+            case SHOPLIST_ITEM:
+                db.delete(SListContract.DetailListColumns.SHOPLIST_DETAIL_TABLE_NAME,
+                        selection,
+                        selectionArgs
+                );
+                break;
+        }
         return 0;
     }
 

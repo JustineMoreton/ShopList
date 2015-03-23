@@ -3,10 +3,10 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:gravity="center_vertical"
     android:id="@+id/list_detail_textview"
     android:background="#fffdf1ff"
     android:textAppearance="?android:textAppearanceMedium"
     android:focusable="false"
+    android:minHeight="56dp"
     />

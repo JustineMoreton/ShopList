@@ -24,21 +24,26 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private DetailAdapter detailAdapter;
     private EditText edittext;
     SListDBHelper sListDBHelper;
-       private String getId;
     public DetailFragment(){
         setHasOptionsMenu(true);
     }
 
-    final static int SHOPLIST_DETAIL_INT=1;
-    final  String[] fromCols ={SListContract.DetailListColumns._ID,SListContract.DetailListColumns.SHOPLIST_ITEMS_COL, SListContract.DetailListColumns.SHOPLIST_PARENT_NAME};
+    final static int SHOPLIST_DETAIL_INT=0;
+    final static int SHOPLIST_DETAIL_COL=1;
+    final  String[] fromCols ={SListContract.DetailListColumns._ID,SListContract.DetailListColumns.SHOPLIST_ITEMS_COL};
     final  String selection= SListContract.DetailListColumns.SHOPLIST_PARENT_NAME +"=?";
-    final  String[] selectionArgs={getId};
+    String[] selectionArgs = new String[1];
+
+
 
     @Override
     public void onCreate(Bundle savedInstantState){
         super.onCreate(savedInstantState);
         Bundle args = getArguments();
-        getId = args.getString("_ID");
+        //getId = args.getString("_ID");
+        this.setSelectionArgument(args.getString("_ID"));
+
+        System.out.println("in fragment on create, getting args"+ selection + selectionArgs[0]);
         sListDBHelper = new SListDBHelper(getActivity());
         getLoaderManager().initLoader(SHOPLIST_DETAIL_INT,null,this);
     }
@@ -74,8 +79,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                         this.getActivity(),
                         uri,
                         fromCols,
-                        null,
-                        null,
+                        selection,
+                        selectionArgs,
                         null
                 );
         }
@@ -92,5 +97,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         detailAdapter.swapCursor(null);
     }
 
+
+   private void setSelectionArgument(String args)
+   {
+       this.selectionArgs[0] = args;
+   }
 
 }

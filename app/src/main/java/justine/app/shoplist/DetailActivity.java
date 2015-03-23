@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -26,7 +27,6 @@ public class DetailActivity extends Activity {
         id=getIntent().getStringExtra("_ID");
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
-            // sListProvider = new SListProvider();
             sListDBHelper = new SListDBHelper(DetailActivity.this);
             args.putString("_ID",id);
             detailFragment.setArguments(args);
@@ -40,8 +40,7 @@ public class DetailActivity extends Activity {
     @Override
     protected void onStart(){
         super.onStart();
-        System.out.println("onactivity result");
-
+        System.out.println("DetailActivity onStart");
 
         final EditText editText = detailFragment.getEditText();
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -51,16 +50,18 @@ public class DetailActivity extends Activity {
 
                 String inputString = editText.getText().toString();
                 //actionId == EditorInfo.IME_ACTION_SEND && event.getKeyCode() ==KeyEvent.KEYCODE_ENTER
-                /**if (editText.length() > 0) {
+                if (editText.length() > 0) {
                     editText.getText().clear();
-                }*/
+                }
                 if (actionId == EditorInfo.IME_NULL ) {
-                    System.out.println("action!send");
+                    System.out.println("action!send "+ inputString +" " + id);
                     ContentValues values = new ContentValues();
                     values.put(SListContract.DetailListColumns.SHOPLIST_ITEMS_COL,inputString);
                     values.put(SListContract.DetailListColumns.SHOPLIST_PARENT_NAME,id);
                     ContentResolver contentResolver = getContentResolver();
                     contentResolver.insert(SListContract.DetailListColumns.CONTENT_URI,values);
+                    getBaseContext().getContentResolver().notifyChange((SListContract.DetailListColumns.CONTENT_URI),null);
+                    Log.d("DetailActivity", inputString);
 
                 }
                 return true;

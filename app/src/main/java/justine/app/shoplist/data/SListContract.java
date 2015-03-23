@@ -11,8 +11,7 @@ public class SListContract {
     public static final String CONTENT_AUTHORITY ="justine.app.shoplist.provider";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String SLIST_NAME = "shopList";
-    public static final String SLIST_DETAIL = "shopList_Items";
-    public static final Uri SLIST_NAME_URI = Uri.parse("content://justine.app.shoplist/shopList");
+    public static final String SLIST_DETAIL = "shopList_Items_Table_Name";
     public SListContract(){
 
     }
@@ -33,7 +32,7 @@ public class SListContract {
     public static class DetailListColumns implements BaseColumns{
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(SLIST_DETAIL).build();
-        public static final String SHOPLIST_DETAIL_TABLE_NAME = "shopList_Items";
+        public static final String SHOPLIST_DETAIL_TABLE_NAME = "shopList_Items_Table_Name";
         public static final String SHOPLIST_PARENT_NAME ="shopList_Parent";
         public static final String SHOPLIST_ITEMS_COL = "shopList_Items";
     }

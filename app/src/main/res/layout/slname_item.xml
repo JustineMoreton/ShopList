@@ -9,4 +9,5 @@
     android:background="#fffdf1ff"
     android:textAppearance="?android:textAppearanceLarge"
     android:focusable="false"
+    android:minHeight="56dp"
     />

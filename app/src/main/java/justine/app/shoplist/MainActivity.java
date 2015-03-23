@@ -48,6 +48,12 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_settings:
+                ContentResolver resolver = getContentResolver();
+                resolver.delete(SListContract.DetailListColumns.CONTENT_URI,null,null);
+                getBaseContext().getContentResolver().notifyChange((SListContract.DetailListColumns.CONTENT_URI),null);
+                resolver.delete(SListContract.MainListColumns.CONTENT_URI,null,null);
+                getBaseContext().getContentResolver().notifyChange((SListContract.MainListColumns.CONTENT_URI),null);
+
                 return true;
             case R.id.add_item:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -60,11 +66,8 @@ public class MainActivity extends Activity {
                         //SQLiteDatabase db = sListDBHelper.getsWritableDatabase();
                         ContentValues values= new ContentValues();
                         values.put(SListContract.MainListColumns.SHOPLIST_NAME_COL,inputField.getText().toString());
-                       /** db.insert(SListContract.MainListColumns.SHOPLIST_TABLE_NAME,
-                                SListContract.MainListColumns.SHOPLIST_NAME_COL,
-                                values);*/
-                        ContentResolver resolver = getContentResolver();
 
+                        ContentResolver resolver = getContentResolver();
                         System.out.println(SListContract.MainListColumns.CONTENT_URI);
                         resolver.insert((SListContract.MainListColumns.CONTENT_URI),values);
                         getBaseContext().getContentResolver().notifyChange((SListContract.MainListColumns.CONTENT_URI),null);

@@ -54,7 +54,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("item clicked");
                 long itemId = mAdapter.getItemId(position);
-                String itemIdStr =Long.toString(itemId);
+                String itemIdStr = Long.toString(itemId);
                 Intent intent = new Intent(getActivity(),DetailActivity.class);
                 intent.putExtra("_ID",itemIdStr);
                 startActivity(intent);
@@ -95,9 +95,6 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
         mAdapter.swapCursor(null);
     }
 
-    public void onActivityCreated(){
-
-    }
 
 }
 

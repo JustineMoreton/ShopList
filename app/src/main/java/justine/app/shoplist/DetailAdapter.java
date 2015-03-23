@@ -47,7 +47,7 @@ public class DetailAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
         int viewType = getItemViewType(cursor.getPosition());
-        String shoplistdetail =cursor.getString(DetailFragment.SHOPLIST_DETAIL_INT);
+        String shoplistdetail =cursor.getString(DetailFragment.SHOPLIST_DETAIL_COL);
         viewHolder.shoplistDetailView.setText(shoplistdetail);
     }
 }
