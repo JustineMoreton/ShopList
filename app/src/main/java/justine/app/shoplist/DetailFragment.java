@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import justine.app.shoplist.data.SListContract;
-import justine.app.shoplist.data.SListDBHelper;
 
 /**
  * Created by Justine on 2015/03/21.
@@ -23,7 +22,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private ListView mlistView;
     private DetailAdapter detailAdapter;
     private EditText edittext;
-    SListDBHelper sListDBHelper;
+    private Bundle mBundle;
+
     public DetailFragment(){
         setHasOptionsMenu(true);
     }
@@ -34,29 +34,40 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     final  String selection= SListContract.DetailListColumns.SHOPLIST_PARENT_NAME +"=?";
     String[] selectionArgs = new String[1];
 
-
-
     @Override
     public void onCreate(Bundle savedInstantState){
         super.onCreate(savedInstantState);
         Bundle args = getArguments();
-        //getId = args.getString("_ID");
+        mBundle=args;
+        if(args != null){
         this.setSelectionArgument(args.getString("_ID"));
-
-        System.out.println("in fragment on create, getting args"+ selection + selectionArgs[0]);
-        sListDBHelper = new SListDBHelper(getActivity());
+        }else{
+            this.setSelectionArgument("0");
+        }
         getLoaderManager().initLoader(SHOPLIST_DETAIL_INT,null,this);
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-        View rootView = inflater.inflate(R.layout.detail_main, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
         mlistView = (ListView) rootView.findViewById(R.id.list_items_view);
-        detailAdapter = new DetailAdapter(getActivity(),null,0);
+        detailAdapter = new DetailAdapter(getActivity(), null, 0);
         mlistView.setAdapter(detailAdapter);
+
+      /*  if(mBundle!=null) {
+            rootView = inflater.inflate(R.layout.fragment_detail, container, false);
+            mlistView = (ListView) rootView.findViewById(R.id.list_items_view);
+            detailAdapter = new DetailAdapter(getActivity(), null, 0);
+            mlistView.setAdapter(detailAdapter);
+
+        }else{
+            rootView = inflater.inflate(R.layout.fragment_detail_no_list, container,false);
+            mlistView = (ListView) rootView.findViewById(R.id.list_items_view);
+            detailAdapter = new DetailAdapter(getActivity(), null, 0);
+            mlistView.setAdapter(detailAdapter);
+            }*/
         return rootView;
     }
     @Override
@@ -100,7 +111,10 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
    private void setSelectionArgument(String args)
    {
-       this.selectionArgs[0] = args;
+           this.selectionArgs[0] = args;
+
    }
+
+
 
 }

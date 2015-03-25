@@ -17,7 +17,7 @@ import justine.app.shoplist.data.SListDBHelper;
  * Created by Justine on 2015/03/21.
  */
 public class DetailActivity extends Activity {
-    DetailFragment detailFragment = new DetailFragment();
+    DetailFragment detailFragment;
     Bundle args = new Bundle();
     SListDBHelper sListDBHelper;
     String id="";
@@ -27,11 +27,12 @@ public class DetailActivity extends Activity {
         id=getIntent().getStringExtra("_ID");
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
+            detailFragment = new DetailFragment();
             sListDBHelper = new SListDBHelper(DetailActivity.this);
             args.putString("_ID",id);
             detailFragment.setArguments(args);
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, detailFragment)
+                    .add(R.id.list_detail_container, detailFragment)
                     .commit();
         }
 
@@ -49,11 +50,11 @@ public class DetailActivity extends Activity {
                 System.out.println("in onEDitorAct");
 
                 String inputString = editText.getText().toString();
-                //actionId == EditorInfo.IME_ACTION_SEND && event.getKeyCode() ==KeyEvent.KEYCODE_ENTER
                 if (editText.length() > 0) {
                     editText.getText().clear();
                 }
-                if (actionId == EditorInfo.IME_NULL ) {
+                if (actionId == EditorInfo.IME_NULL
+                        ||(actionId == EditorInfo.IME_NULL &&event.getAction() == KeyEvent.ACTION_UP) ) {
                     System.out.println("action!send "+ inputString +" " + id);
                     ContentValues values = new ContentValues();
                     values.put(SListContract.DetailListColumns.SHOPLIST_ITEMS_COL,inputString);

@@ -16,6 +16,7 @@ public class DetailAdapter extends CursorAdapter {
     public DetailAdapter(Context context, Cursor c, int flags) {
         super(context, c, flags);
     }
+
     public static class ViewHolder{
         public final TextView shoplistDetailView;
 

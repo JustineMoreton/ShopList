@@ -20,10 +20,9 @@ import justine.app.shoplist.data.SListContract;
  * Created by Justine on 2015/03/16.
  */
 public class ListFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-   private ListView mListView;
-   String [] fromCols ={SListContract.MainListColumns._ID,SListContract.MainListColumns.SHOPLIST_NAME_COL};
-
-   int [] toTextViews ={R.id.listView};
+    private ListView mListView;
+    String [] fromCols ={SListContract.MainListColumns._ID,SListContract.MainListColumns.SHOPLIST_NAME_COL};
+    Boolean idIsPresent;
    SListAdapter mAdapter;
  final static int SHOPLIST_INT =0;
  final static int COL_SHOPLIST_ID=0;
@@ -53,7 +52,7 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("item clicked");
-                long itemId = mAdapter.getItemId(position);
+                Long itemId = mAdapter.getItemId(position);
                 String itemIdStr = Long.toString(itemId);
                 Intent intent = new Intent(getActivity(),DetailActivity.class);
                 intent.putExtra("_ID",itemIdStr);
@@ -94,7 +93,9 @@ public class ListFragment extends Fragment implements LoaderManager.LoaderCallba
 
         mAdapter.swapCursor(null);
     }
-
+    public void setTwopane(Boolean mTwoPane){
+        idIsPresent =mTwoPane;
+    }
 
 }
 

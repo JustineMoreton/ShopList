@@ -12,26 +12,32 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import justine.app.shoplist.data.SListContract;
-import justine.app.shoplist.data.SListDBHelper;
 
 
 public class MainActivity extends Activity {
-    //SListProvider sListProvider;
-    SListDBHelper sListDBHelper;
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-          // sListProvider = new SListProvider();
-            sListDBHelper = new SListDBHelper(MainActivity.this);
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new ListFragment())
-                    .commit();
-        }
-    }
+        if(findViewById(R.id.list_detail_container)!=null){
+            mTwoPane=true;
+            if(savedInstanceState==null) {
 
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.list_detail_container, new DetailFragment())
+                    .commit();
+            }
+        }else{
+            mTwoPane=false;
+
+        }
+        ListFragment listFragment = ((ListFragment)getFragmentManager()
+        .findFragmentById(R.id.main_fragment));
+        listFragment.setTwopane(mTwoPane);
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
