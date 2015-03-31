@@ -35,18 +35,25 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     String[] selectionArgs = new String[1];
 
     @Override
-    public void onCreate(Bundle savedInstantState){
+    public void onCreate(Bundle savedInstantState) {
         super.onCreate(savedInstantState);
-        Bundle args = getArguments();
-        mBundle=args;
-        if(args != null){
-        this.setSelectionArgument(args.getString("_ID"));
-        }else{
-            this.setSelectionArgument("0");
+        if (savedInstantState == null) {
+            Bundle args = getArguments();
+            mBundle = args;
+            if (args != null) {
+                this.setSelectionArgument(args.getString("_ID"));
+            } else {
+                this.setSelectionArgument("0");
+            }
+            getLoaderManager().initLoader(SHOPLIST_DETAIL_INT, null, this);
         }
-        getLoaderManager().initLoader(SHOPLIST_DETAIL_INT,null,this);
-    }
+        if(savedInstantState !=null) {
+            Bundle args = getArguments();
 
+            this.setSelectionArgument(args.getString("_ID"));
+            getLoaderManager().restartLoader(SHOPLIST_DETAIL_INT, null, this);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

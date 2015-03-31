@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
             if(savedInstanceState==null) {
 
             getFragmentManager().beginTransaction()
-                    .replace(R.id.list_detail_container, new DetailFragment())
+                    .add(R.id.list_detail_container, new DetailFragment())
                     .commit();
             }
         }else{
