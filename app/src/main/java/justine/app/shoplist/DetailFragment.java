@@ -37,7 +37,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onCreate(Bundle savedInstantState) {
         super.onCreate(savedInstantState);
-        if (savedInstantState == null) {
+
             Bundle args = getArguments();
             mBundle = args;
             if (args != null) {
@@ -46,13 +46,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                 this.setSelectionArgument("0");
             }
             getLoaderManager().initLoader(SHOPLIST_DETAIL_INT, null, this);
-        }
-        if(savedInstantState !=null) {
-            Bundle args = getArguments();
 
-            this.setSelectionArgument(args.getString("_ID"));
-            getLoaderManager().restartLoader(SHOPLIST_DETAIL_INT, null, this);
-        }
     }
 
     @Override

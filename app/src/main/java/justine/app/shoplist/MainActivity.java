@@ -16,6 +16,7 @@ import justine.app.shoplist.data.SListContract;
 
 public class MainActivity extends Activity {
     private boolean mTwoPane;
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
             if(savedInstanceState==null) {
 
             getFragmentManager().beginTransaction()
-                    .add(R.id.list_detail_container, new DetailFragment())
+                    .replace(R.id.list_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                     .commit();
             }
         }else{

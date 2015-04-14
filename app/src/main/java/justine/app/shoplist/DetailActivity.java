@@ -30,7 +30,7 @@ public class DetailActivity extends Activity {
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
             detailFragment = new DetailFragment();
-            sListDBHelper = new SListDBHelper(DetailActivity.this);
+            //sListDBHelper = new SListDBHelper(DetailActivity.this);
             args.putString("_ID",id);
             detailFragment.setArguments(args);
             getFragmentManager().beginTransaction()
@@ -40,6 +40,7 @@ public class DetailActivity extends Activity {
         if(savedInstanceState != null){
             detailFragment= (DetailFragment) getFragmentManager()
                     .findFragmentByTag("detailtag");
+
         }
 
 

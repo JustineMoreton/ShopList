@@ -3,5 +3,5 @@
     android:id="@+id/list_detail_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="justine.app.shoplist.DetailFragment"
+    tools:context="justine.app.shoplist.DetailActivity"
     tools:ignore="MergeRootFrame" />
